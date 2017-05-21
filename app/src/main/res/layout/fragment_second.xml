@@ -1,0 +1,50 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:visibility="visible"
+    tools:context="org.kennek.esalud.SecondFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <TextView
+            android:id="@+id/textView"
+            android:layout_width="849dp"
+            android:layout_height="167dp"
+            android:layout_centerHorizontal="true"
+            android:text="Hello Doc" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="match_parent">
+
+        <at.markushi.ui.CircleButton
+            android:id="@+id/btnStop"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_gravity="bottom|end"
+            android:layout_marginTop="75dp"
+            android:src="@mipmap/ic_stop_black_48dp"
+            android:tint="@color/ColorHospitalWalls"
+            app:cb_color="@color/colorPrimaryDark"
+            app:cb_pressedRingWidth="30dp" />
+
+        <at.markushi.ui.CircleButton
+            android:id="@+id/btnRec"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_gravity="bottom|end"
+            android:layout_marginTop="75dp"
+            android:src="@drawable/ic_hearing_black_48dp"
+            android:tint="@color/ColorHospitalWalls"
+            app:cb_color="@color/colorPrimary"
+            app:cb_pressedRingWidth="30dp" />
+
+    </LinearLayout>
+
+
+
+</LinearLayout>

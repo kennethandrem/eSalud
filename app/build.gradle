@@ -1,0 +1,63 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion "25.0.2"
+    dataBinding.enabled = true
+    defaultConfig {
+        applicationId "org.kennek.esalud"
+        minSdkVersion 16
+        targetSdkVersion 25
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        vectorDrawables.useSupportLibrary = true
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    compile 'com.android.support:appcompat-v7:25.3.1'
+    compile 'com.android.support:design:25.3.1'
+    compile 'com.android.support:support-vector-drawable:25.3.1'
+    compile 'com.android.support:support-v4:25.3.1'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    testCompile 'junit:junit:4.12'
+    // FirebaseUI Database only
+    compile 'com.firebaseui:firebase-ui-database:1.2.0'
+    // FirebaseUI Auth only
+    compile 'com.firebaseui:firebase-ui-auth:1.2.0'
+    // FirebaseUI Storage only
+    compile 'com.firebaseui:firebase-ui-storage:1.2.0'
+    // Single target that includes all FirebaseUI libraries above
+    compile 'com.firebaseui:firebase-ui:1.2.0'
+
+    compile 'com.github.markushi:circlebutton:1.1'
+}
+
+allprojects {
+    repositories {
+        jcenter()
+        mavenCentral()
+        mavenLocal()
+        // Required for 'com.firebaseui:firebase-ui:1.1.1'
+        maven {
+            url 'https://maven.fabric.io/public'
+        }
+    }
+}
+
+
+
+
+
+apply plugin: 'com.google.gms.google-services'
