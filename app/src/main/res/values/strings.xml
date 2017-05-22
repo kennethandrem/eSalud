@@ -6,6 +6,7 @@
     <string name="no_internet_connection">No posee conexión a internet</string>
     <string name="unknown_error">Error desconocido</string>
     <string name="title_notifications">Record</string>
+    <string name="title_profile">Profile</string>
     <string name="unknown_sign_in_response">Respuesta desconocida</string>
 
 

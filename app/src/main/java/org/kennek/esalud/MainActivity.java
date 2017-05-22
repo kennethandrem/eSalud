@@ -25,7 +25,7 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity
         implements FirstFragment.OnFragmentInteractionListener,
         SecondFragment.OnFragmentInteractionListener,
-        ThirdFragment.OnFragmentInteractionListener{
+        ThirdFragment.OnFragmentInteractionListener, FourthFragment.OnFragmentInteractionListener{
     private TextView mTextMessage;
     private static final String TAG = MainActivity.class.getSimpleName();
     private BottomNavigationView bottomNavigation;
@@ -101,6 +101,10 @@ public class MainActivity extends AppCompatActivity
             case R.id.navigation_notifications:
                 // Action to perform when Account Menu item is selected.
                 pushFragment(new ThirdFragment());
+                break;
+            case R.id.navigation_profile:
+                // Action to perform when Account Menu item is selected.
+                pushFragment(new FourthFragment());
                 break;
         }
     }
