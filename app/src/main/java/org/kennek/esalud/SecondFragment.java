@@ -76,11 +76,11 @@ public class SecondFragment extends Fragment {
         final CircleButton btnStop = (CircleButton) rootView2.findViewById(R.id.btnStop);
         //agregar fecha para identificar los diferentes audios
         fecha = new Date();
-        outputFile = Environment.getExternalStorageDirectory().getAbsolutePath() +"/"+fecha+".3gp";
+        outputFile = Environment.getExternalStorageDirectory().getAbsolutePath() +"/"+fecha+".mp3";
         grabacion = new MediaRecorder();
         grabacion.setAudioSource(MediaRecorder.AudioSource.MIC);
-        grabacion.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
-        grabacion.setAudioEncoder(MediaRecorder.OutputFormat.AMR_NB);
+        grabacion.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
+        grabacion.setAudioEncoder(MediaRecorder.OutputFormat.MPEG_4);
         grabacion.setOutputFile(outputFile);
 
         btnStop.setEnabled(false);

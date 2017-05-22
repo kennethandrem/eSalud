@@ -9,8 +9,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.facebook.login.LoginManager;
+import com.google.firebase.auth.FirebaseAuth;
 
-public class FirstFragment extends Fragment {
+
+/**
+ * A simple {@link Fragment} subclass.
+ * Activities that contain this fragment must implement the
+ * {@link FourthFragment.OnFragmentInteractionListener} interface
+ * to handle interaction events.
+ * Use the {@link FourthFragment#newInstance} factory method to
+ * create an instance of this fragment.
+ */
+public class FourthFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -22,20 +33,28 @@ public class FirstFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public FirstFragment() {
+    public FourthFragment() {
         // Required empty public constructor
     }
 
+
+    private void goLoginScreen() {
+        Intent intent = new Intent(getActivity(), SplashActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+    }
+
+    public void logout() {
+        LoginManager.getInstance().logOut();
+        FirebaseAuth.getInstance().signOut();
+        goLoginScreen();
+    }
     // TODO: Rename and change types and number of parameters
-    public static FirstFragment newInstance() {
-        FirstFragment fragment = new FirstFragment();
+    public static FourthFragment newInstance() {
+        FourthFragment fragment = new FourthFragment();
         return fragment;
     }
 
-    public void Perfil(View v) {
-        Intent intent = new Intent(getActivity(), ProfileActivity.class);
-                startActivity(intent);
-    }
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,7 +68,7 @@ public class FirstFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_first, container, false);
+        return inflater.inflate(R.layout.fragment_fourth, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event

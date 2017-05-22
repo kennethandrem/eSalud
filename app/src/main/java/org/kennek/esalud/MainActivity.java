@@ -1,6 +1,7 @@
 package org.kennek.esalud;
 
 import android.content.ClipData;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -25,7 +26,7 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity
         implements FirstFragment.OnFragmentInteractionListener,
         SecondFragment.OnFragmentInteractionListener,
-        ThirdFragment.OnFragmentInteractionListener{
+        ThirdFragment.OnFragmentInteractionListener, FourthFragment.OnFragmentInteractionListener{
     private TextView mTextMessage;
     private static final String TAG = MainActivity.class.getSimpleName();
     private BottomNavigationView bottomNavigation;
@@ -62,7 +63,10 @@ public class MainActivity extends AppCompatActivity
         transaction.commit();
     }
 
-
+    public void Perfil(View v) {
+        Intent intent = new Intent(this, ProfileActivity.class);
+        startActivity(intent);
+    }
     /* Checks if external storage is available for read and write */
     public boolean isExternalStorageWritable() {
         String state = Environment.getExternalStorageState();
@@ -101,6 +105,10 @@ public class MainActivity extends AppCompatActivity
             case R.id.navigation_notifications:
                 // Action to perform when Account Menu item is selected.
                 pushFragment(new ThirdFragment());
+                break;
+            case R.id.navigation_profile:
+                // Action to perform when Account Menu item is selected.
+                pushFragment(new FourthFragment());
                 break;
         }
     }

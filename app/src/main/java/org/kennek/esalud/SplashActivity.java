@@ -14,17 +14,17 @@ import com.firebase.ui.auth.ResultCodes;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.Arrays;
+import java.util.Timer;
+import java.util.TimerTask;
 
-import static android.R.id.message;
-
-public class LoginActivity extends AppCompatActivity {
+public class SplashActivity extends AppCompatActivity {
 
     // Choose an arbitrary request code value
     private static final int RC_SIGN_IN = 123;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_splash);
 
         //Verify if the current session has a user authenticate
         FirebaseAuth auth = FirebaseAuth.getInstance();
@@ -38,9 +38,7 @@ public class LoginActivity extends AppCompatActivity {
                     AuthUI.getInstance()
                             .createSignInIntentBuilder()
                             .setProviders(Arrays.asList(new AuthUI.IdpConfig.Builder(AuthUI.EMAIL_PROVIDER).build(),
-                                    new AuthUI.IdpConfig.Builder(AuthUI.GOOGLE_PROVIDER).build(),
-                                    new AuthUI.IdpConfig.Builder(AuthUI.FACEBOOK_PROVIDER).build(),
-                                    new AuthUI.IdpConfig.Builder(AuthUI.TWITTER_PROVIDER).build()))
+                                    new AuthUI.IdpConfig.Builder(AuthUI.FACEBOOK_PROVIDER).build()))
                             .setIsSmartLockEnabled(false)
                             .setTheme(R.style.AppTheme)
                             .build(),
@@ -87,18 +85,5 @@ public class LoginActivity extends AppCompatActivity {
                 responseString, Snackbar.LENGTH_SHORT);
         return snack;
     }
-    public void click(View v) {
-        Intent intent;
-        switch(v.getId()) {
-            case R.id.link_signup:
-                intent = new Intent(this, SignUpActivity.class);
-                startActivity(intent);
-                break;
-            case R.id.btn_login:
-                intent = new Intent(this, MainActivity.class);
-                startActivity(intent);
-                break;
-        }
 
-    }
 }

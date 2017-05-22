@@ -15,4 +15,8 @@
         android:id="@+id/navigation_notifications"
         android:icon="@mipmap/ic_playlist_play_black_48dp"
         android:title="@string/title_notifications" />
+    <item
+        android:id="@+id/navigation_profile"
+        android:icon="@drawable/ic_healing_black_48dp"
+        android:title="@string/title_healing" />
 </menu>
