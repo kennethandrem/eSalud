@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/GIT App.iml" filepath="$PROJECT_DIR$/GIT App.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/eSalud.iml" filepath="$PROJECT_DIR$/eSalud.iml" />
     </modules>
   </component>
 </project>

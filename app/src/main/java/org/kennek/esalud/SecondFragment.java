@@ -19,6 +19,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Date;
 
@@ -76,7 +77,20 @@ public class SecondFragment extends Fragment {
         final CircleButton btnStop = (CircleButton) rootView2.findViewById(R.id.btnStop);
         //agregar fecha para identificar los diferentes audios
         fecha = new Date();
-        outputFile = Environment.getExternalStorageDirectory().getAbsolutePath() +"/"+fecha+".mp3";
+
+        File folder = new File(Environment.getExternalStorageDirectory() + "/eSalud");
+        boolean success = true;
+        if (!folder.exists()) {
+            //Toast.makeText(MainActivity.this, "Directory Does Not Exist, Create It", Toast.LENGTH_SHORT).show();
+            success = folder.mkdir();
+        }
+        if (success) {
+            Toast.makeText(getActivity(), "Directory Created", Toast.LENGTH_SHORT).show();
+            outputFile = Environment.getExternalStorageDirectory().getAbsolutePath() +"/eSalud/"+fecha+".mp3";
+        } else {
+            //Toast.makeText(MainActivity.this, "Failed - Error", Toast.LENGTH_SHORT).show();
+        }
+
         grabacion = new MediaRecorder();
         grabacion.setAudioSource(MediaRecorder.AudioSource.MIC);
         grabacion.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
