@@ -20,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
+import java.util.Date;
 
 import at.markushi.ui.CircleButton;
 
@@ -39,6 +40,7 @@ public class SecondFragment extends Fragment {
     private static final String ARG_PARAM2 = "param2";
     private MediaRecorder grabacion;
     private  String outputFile = null;
+    Date fecha;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -72,7 +74,9 @@ public class SecondFragment extends Fragment {
         View rootView2 = inflater.inflate(R.layout.fragment_second, container, false);
         final CircleButton btnRec = (CircleButton) rootView2.findViewById(R.id.btnRec);
         final CircleButton btnStop = (CircleButton) rootView2.findViewById(R.id.btnStop);
-        outputFile = Environment.getExternalStorageDirectory().getAbsolutePath() +"/Audio.3gp";
+        //agregar fecha para identificar los diferentes audios
+        fecha = new Date();
+        outputFile = Environment.getExternalStorageDirectory().getAbsolutePath() +"/"+fecha+".3gp";
         grabacion = new MediaRecorder();
         grabacion.setAudioSource(MediaRecorder.AudioSource.MIC);
         grabacion.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
