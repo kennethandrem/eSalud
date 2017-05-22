@@ -70,7 +70,7 @@ public class SecondFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView2 = inflater.inflate(R.layout.fragment_second, container, false);
-        CircleButton btnRec = (CircleButton) rootView2.findViewById(R.id.btnRec);
+        final CircleButton btnRec = (CircleButton) rootView2.findViewById(R.id.btnRec);
         final CircleButton btnStop = (CircleButton) rootView2.findViewById(R.id.btnStop);
         outputFile = Environment.getExternalStorageDirectory().getAbsolutePath() +"/Audio.3gp";
         grabacion = new MediaRecorder();
@@ -108,6 +108,8 @@ public class SecondFragment extends Fragment {
                 grabacion.stop();
                 grabacion.release();
                 grabacion = null;
+                btnStop.setEnabled(false);
+                btnRec.setEnabled(true);
                 Snackbar snackbar = Snackbar
                         .make(v, "¡Grabado con exito!", Snackbar.LENGTH_SHORT);
                 snackbar.show();
