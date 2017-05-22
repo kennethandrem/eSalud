@@ -17,7 +17,7 @@ public class SignUpActivity extends AppCompatActivity {
         Intent intent;
         switch(v.getId()) {
             case R.id.link_login:
-                intent = new Intent(this, LoginActivity.class);
+                intent = new Intent(this, SplashActivity.class);
                 startActivity(intent);
                 break;
             case R.id.btn_signup:

@@ -1,12 +1,16 @@
 package org.kennek.esalud;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.facebook.login.LoginManager;
+import com.google.firebase.auth.FirebaseAuth;
 
 
 /**
@@ -34,6 +38,17 @@ public class FourthFragment extends Fragment {
     }
 
 
+    private void goLoginScreen() {
+        Intent intent = new Intent(getActivity(), SplashActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+    }
+
+    public void logout() {
+        LoginManager.getInstance().logOut();
+        FirebaseAuth.getInstance().signOut();
+        goLoginScreen();
+    }
     // TODO: Rename and change types and number of parameters
     public static FourthFragment newInstance() {
         FourthFragment fragment = new FourthFragment();

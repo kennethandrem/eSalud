@@ -1,6 +1,7 @@
 package org.kennek.esalud;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -31,6 +32,10 @@ public class FirstFragment extends Fragment {
         return fragment;
     }
 
+    public void Perfil(View v) {
+        Intent intent = new Intent(getActivity(), ProfileActivity.class);
+                startActivity(intent);
+    }
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

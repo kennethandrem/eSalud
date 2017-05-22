@@ -1,6 +1,7 @@
 package org.kennek.esalud;
 
 import android.content.ClipData;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -62,7 +63,10 @@ public class MainActivity extends AppCompatActivity
         transaction.commit();
     }
 
-
+    public void Perfil(View v) {
+        Intent intent = new Intent(this, ProfileActivity.class);
+        startActivity(intent);
+    }
     /* Checks if external storage is available for read and write */
     public boolean isExternalStorageWritable() {
         String state = Environment.getExternalStorageState();

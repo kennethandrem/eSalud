@@ -72,11 +72,11 @@ public class SecondFragment extends Fragment {
         View rootView2 = inflater.inflate(R.layout.fragment_second, container, false);
         final CircleButton btnRec = (CircleButton) rootView2.findViewById(R.id.btnRec);
         final CircleButton btnStop = (CircleButton) rootView2.findViewById(R.id.btnStop);
-        outputFile = Environment.getExternalStorageDirectory().getAbsolutePath() +"/Audio.3gp";
+        outputFile = Environment.getExternalStorageDirectory().getAbsolutePath() +"/Audio.mp3";
         grabacion = new MediaRecorder();
         grabacion.setAudioSource(MediaRecorder.AudioSource.MIC);
-        grabacion.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
-        grabacion.setAudioEncoder(MediaRecorder.OutputFormat.AMR_NB);
+        grabacion.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
+        grabacion.setAudioEncoder(MediaRecorder.OutputFormat.MPEG_4);
         grabacion.setOutputFile(outputFile);
 
         btnStop.setEnabled(false);
