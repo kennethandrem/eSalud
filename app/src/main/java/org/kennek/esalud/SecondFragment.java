@@ -85,8 +85,8 @@ public class SecondFragment extends Fragment {
             success = folder.mkdir();
         }
         if (success) {
-            Toast.makeText(getActivity(), "Directory Created", Toast.LENGTH_SHORT).show();
-            outputFile = Environment.getExternalStorageDirectory().getAbsolutePath() +"/eSalud/"+fecha+".mp3";
+            //Toast.makeText(getActivity(), "Directory Created", Toast.LENGTH_SHORT).show();
+            outputFile = Environment.getExternalStorageDirectory().getAbsolutePath() +"/eSalud/"+fecha+".flac";
         } else {
             //Toast.makeText(MainActivity.this, "Failed - Error", Toast.LENGTH_SHORT).show();
         }
