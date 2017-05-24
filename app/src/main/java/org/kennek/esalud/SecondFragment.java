@@ -1,9 +1,6 @@
 package org.kennek.esalud;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.Color;
 import android.media.MediaRecorder;
 import android.net.Uri;
 import android.os.Bundle;
@@ -14,16 +11,20 @@ import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.TextView;
-import android.widget.Toast;
+
+import org.kennek.esalud.interfaces.SpeechInterface;
+import org.kennek.esalud.models.Audio;
+import org.kennek.esalud.models.Config;
+import org.kennek.esalud.models.SpeechApiRequest;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Date;
 
 import at.markushi.ui.CircleButton;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 
 /**
@@ -69,7 +70,7 @@ public class SecondFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView2 = inflater.inflate(R.layout.fragment_second, container, false);
@@ -77,6 +78,13 @@ public class SecondFragment extends Fragment {
         final CircleButton btnStop = (CircleButton) rootView2.findViewById(R.id.btnStop);
         //agregar fecha para identificar los diferentes audios
         fecha = new Date();
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://speech.googleapis.com/v1")
+                .addConverterFactory(GsonConverterFactory
+                        .create())
+                .build();
+        SpeechInterface service = retrofit.create(SpeechInterface.class);
 
         File folder = new File(Environment.getExternalStorageDirectory() + "/eSalud");
         boolean success = true;
@@ -133,6 +141,12 @@ public class SecondFragment extends Fragment {
                 snackbar.show();
                 View sbView = snackbar.getView();
                 sbView.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.colorPrimary));
+                byte[] buffer = new byte[1024];
+                SpeechApiRequest speechApi = new SpeechApiRequest();
+                Audio audio = new Audio();
+                //audio.setUri();
+                Config config = new Config();
+                //config.setEncoding();
             }
         });
         return rootView2;
