@@ -10,8 +10,8 @@
     <!-- TODO: Update blank fragment layout -->
 
     <TextView
-            android:id="@+id/textView"
-            android:layout_width="849dp"
+            android:id="@+id/txtDoc"
+            android:layout_width="match_parent"
             android:layout_height="167dp"
             android:layout_centerHorizontal="true"
             android:text="Hello Doc" />
