@@ -24,20 +24,15 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import org.kennek.esalud.interfaces.SpeechInterface;
-import org.kennek.esalud.models.Audio;
-import org.kennek.esalud.models.Config;
 import org.kennek.esalud.models.SpeechApiRequest;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.Date;
 
 import at.markushi.ui.CircleButton;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-
-import static android.R.attr.data;
 
 
 /**
@@ -54,9 +49,13 @@ public class SecondFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     private MediaRecorder grabacion;
+    private final String encoding = "FLAC";
+    private final String sampleRateHertz = "16000";
+    private final String languageCode = "en-ES";
     private  String outputFile = null;
     FirebaseStorage storage = FirebaseStorage.getInstance();
     Date fecha;
+    private Uri downloadUrl;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -92,13 +91,6 @@ public class SecondFragment extends Fragment {
         final CircleButton btnStop = (CircleButton) rootView2.findViewById(R.id.btnStop);
         //agregar fecha para identificar los diferentes audios
         fecha = new Date();
-
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://speech.googleapis.com/v1/")
-                .addConverterFactory(GsonConverterFactory
-                        .create())
-                .build();
-        SpeechInterface service = retrofit.create(SpeechInterface.class);
 
         File folder = new File(Environment.getExternalStorageDirectory() + "/eSalud");
         boolean success = true;
@@ -157,10 +149,6 @@ public class SecondFragment extends Fragment {
                 sbView.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.colorPrimary));
                 byte[] buffer = new byte[1024];
                 SpeechApiRequest speechApi = new SpeechApiRequest();
-                Audio audio = new Audio();
-                //audio.setUri();
-                Config config = new Config();
-                //config.setEncoding();
 
                 StorageReference storageRef = storage.getReferenceFromUrl("gs://esalud-f8523.appspot.com");
                 Uri file = Uri.fromFile(new File("storage/emulated/0/eSalud/"+fecha+".mp3"));
@@ -177,7 +165,7 @@ public class SecondFragment extends Fragment {
                     @Override
                     public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
 
-                        System.out.println("Upload is % done");
+                        System.out.println("Upload is % IN PROGRESS");
                     }
                 }).addOnPausedListener(new OnPausedListener<UploadTask.TaskSnapshot>() {
                     @Override
@@ -192,8 +180,15 @@ public class SecondFragment extends Fragment {
                 }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        // Handle successful uploads on complete
-                        //Uri downloadUrl = taskSnapshot.getDownloadUrl();
+                        @SuppressWarnings("VisibleForTests") Uri downloadUrl = taskSnapshot.getDownloadUrl();
+                        Retrofit retrofit = new Retrofit.Builder()
+                                .baseUrl("https://speech.googleapis.com/v1/")
+                                .addConverterFactory(GsonConverterFactory
+                                        .create())
+                                .build();
+                        SpeechInterface speechInterface = retrofit.create(SpeechInterface.class);
+
+
                     }
                 });
             }

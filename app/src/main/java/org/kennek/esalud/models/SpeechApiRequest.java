@@ -30,4 +30,56 @@ public class SpeechApiRequest {
     public void setAudio(Audio audio) {
         this.audio = audio;
     }
+
+    public class Config {
+        @SerializedName("encoding")
+        @Expose
+        private String encoding;
+        @SerializedName("sampleRateHertz")
+        @Expose
+        private Integer sampleRateHertz;
+        @SerializedName("languageCode")
+        @Expose
+        private String languageCode;
+
+        public String getEncoding() {
+            return encoding;
+        }
+
+        public void setEncoding(String encoding) {
+            this.encoding = encoding;
+        }
+
+        public Integer getSampleRateHertz() {
+            return sampleRateHertz;
+        }
+
+        public void setSampleRateHertz(Integer sampleRateHertz) {
+            this.sampleRateHertz = sampleRateHertz;
+        }
+
+        public String getLanguageCode() {
+            return languageCode;
+        }
+
+        public void setLanguageCode(String languageCode) {
+            this.languageCode = languageCode;
+        }
+    }
+
+    public class Audio {
+        @SerializedName("uri")
+        @Expose
+        private String uri;
+
+        public String getUri() {
+            return uri;
+        }
+
+        public String setUri(String uri) {
+            this.uri = uri;
+            return uri;
+        }
+
+    }
 }
