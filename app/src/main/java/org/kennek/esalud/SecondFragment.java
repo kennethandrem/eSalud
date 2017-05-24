@@ -5,12 +5,23 @@ import android.media.MediaRecorder;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnPausedListener;
+import com.google.firebase.storage.OnProgressListener;
+import com.google.firebase.storage.StorageMetadata;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import org.kennek.esalud.interfaces.SpeechInterface;
 import org.kennek.esalud.models.Audio;
@@ -25,6 +36,8 @@ import java.util.Date;
 import at.markushi.ui.CircleButton;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+
+import static android.R.attr.data;
 
 
 /**
@@ -42,6 +55,7 @@ public class SecondFragment extends Fragment {
     private static final String ARG_PARAM2 = "param2";
     private MediaRecorder grabacion;
     private  String outputFile = null;
+    FirebaseStorage storage = FirebaseStorage.getInstance();
     Date fecha;
 
     // TODO: Rename and change types of parameters
@@ -80,7 +94,7 @@ public class SecondFragment extends Fragment {
         fecha = new Date();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://speech.googleapis.com/v1")
+                .baseUrl("https://speech.googleapis.com/v1/")
                 .addConverterFactory(GsonConverterFactory
                         .create())
                 .build();
@@ -93,10 +107,10 @@ public class SecondFragment extends Fragment {
             success = folder.mkdir();
         }
         if (success) {
-            //Toast.makeText(getActivity(), "Directory Created", Toast.LENGTH_SHORT).show();
-            outputFile = Environment.getExternalStorageDirectory().getAbsolutePath() +"/eSalud/"+fecha+".flac";
+            outputFile = Environment.getExternalStorageDirectory().getAbsolutePath() +"/eSalud/"+fecha+".mp3";
+            Toast.makeText(getActivity(), outputFile, Toast.LENGTH_SHORT).show();
         } else {
-            //Toast.makeText(MainActivity.this, "Failed - Error", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "Failed - Error", Toast.LENGTH_SHORT).show();
         }
 
         grabacion = new MediaRecorder();
@@ -147,6 +161,41 @@ public class SecondFragment extends Fragment {
                 //audio.setUri();
                 Config config = new Config();
                 //config.setEncoding();
+
+                StorageReference storageRef = storage.getReferenceFromUrl("gs://esalud-f8523.appspot.com");
+                Uri file = Uri.fromFile(new File("storage/emulated/0/eSalud/"+fecha+".mp3"));
+
+                // Create the file metadata
+                StorageMetadata metadata = new StorageMetadata.Builder()
+                        .setContentType("audio/mpeg")
+                        .build();
+                // Upload file and metadata to the path 'audio/audio.mp3'
+                UploadTask uploadTask = storageRef.child("eSalud/"+file.getLastPathSegment()).putFile(file, metadata);
+
+// Listen for state changes, errors, and completion of the upload.
+                uploadTask.addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+
+                        System.out.println("Upload is % done");
+                    }
+                }).addOnPausedListener(new OnPausedListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onPaused(UploadTask.TaskSnapshot taskSnapshot) {
+                        System.out.println("Upload is paused");
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception exception) {
+                        // Handle unsuccessful uploads
+                    }
+                }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        // Handle successful uploads on complete
+                        //Uri downloadUrl = taskSnapshot.getDownloadUrl();
+                    }
+                });
             }
         });
         return rootView2;
