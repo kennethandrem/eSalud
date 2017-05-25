@@ -17,17 +17,17 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 public class SpeechApiResponse {
 
     @JsonProperty("alternatives")
-    private List<org.kennek.esalud.Alternative> alternatives = null;
+    private List<Alternative> alternatives = null;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     @JsonProperty("alternatives")
-    public List<org.kennek.esalud.Alternative> getAlternatives() {
+    public List<Alternative> getAlternatives() {
         return alternatives;
     }
 
     @JsonProperty("alternatives")
-    public void setAlternatives(List<org.kennek.esalud.Alternative> alternatives) {
+    public void setAlternatives(List<Alternative> alternatives) {
         this.alternatives = alternatives;
     }
 

@@ -9,6 +9,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,14 +27,20 @@ import com.google.gson.JsonObject;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.kennek.esalud.Audio;
 import org.kennek.esalud.interfaces.SpeechInterface;
+import org.kennek.esalud.models.Config;
 import org.kennek.esalud.models.SpeechApiRequest;
+import org.kennek.esalud.models.SpeechApiResponse;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.Date;
 
 import at.markushi.ui.CircleButton;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -151,7 +158,7 @@ public class SecondFragment extends Fragment {
                 View sbView = snackbar.getView();
                 sbView.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.colorPrimary));
                 byte[] buffer = new byte[1024];
-                SpeechApiRequest speechApi = new SpeechApiRequest();
+                final SpeechApiRequest speechApi = new SpeechApiRequest();
 
                 StorageReference storageRef = storage.getReferenceFromUrl("gs://esalud-f8523.appspot.com");
                 Uri file = Uri.fromFile(new File("storage/emulated/0/eSalud/"+fecha+".mp3"));
@@ -191,6 +198,37 @@ public class SecondFragment extends Fragment {
                                 .build();
                         SpeechInterface speechInterface = retrofit.create(SpeechInterface.class);
 
+                        Audio audio = new Audio();
+                        audio.setUri("gs://esalud-f8523.appspot.com/eSalud" + fecha + ".mp3");
+
+                        Config config = new Config();
+                        config.setEncoding("FLAC");
+                        config.setSampleRateHertz(16000);
+                        config.setLanguageCode("es_ES");
+                        config.setMaxAlternatives(1);
+                        config.setProfanityFilter(false);
+
+                        SpeechApiRequest speechApiRequest = new SpeechApiRequest();
+
+                        speechApiRequest.setAudio(audio);
+                        speechApiRequest.setConfig(config);
+                        Log.d("JSON> ", speechApiRequest.toString());
+                        Call<SpeechApiResponse> speechApiResponseCall = speechInterface.getSpeechApi(speechApiRequest);
+
+                        speechApiResponseCall.enqueue(new Callback<SpeechApiResponse>() {
+                            @Override
+                            public void onResponse(Call<SpeechApiResponse> call, Response<SpeechApiResponse> response) {
+                                int statusCode = response.code();
+                                SpeechApiResponse speechApiResponse = response.body();
+                                Log.d("asdf ", speechApiResponse.toString());
+                                Log.d("ServiceApiREsponse ", "Responde " + statusCode);
+                            }
+
+                            @Override
+                            public void onFailure(Call<SpeechApiResponse> call, Throwable t) {
+                                Log.d("ServiceApiREsponse ", "Fallo  " + t.getMessage());
+                            }
+                        });
                         /*JSONObject json = new JSONObject();
                         JSONObject audiojson = new JSONObject();
                         JSONObject configjson = new JSONObject();

@@ -1,4 +1,4 @@
-package org.kennek.esalud;
+package org.kennek.esalud.models;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -12,6 +12,6 @@ import retrofit2.http.POST;
  */
 
 public interface SpeechInterface {
-    @POST("/speech:recognize")
+    @POST("speech:recognize")
     Call<SpeechApiResponse>getSpeechApi(@Body SpeechApiRequest speechApiRequest);
 }
