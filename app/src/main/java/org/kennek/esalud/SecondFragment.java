@@ -22,7 +22,10 @@ import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageMetadata;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.google.gson.JsonObject;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.kennek.esalud.interfaces.SpeechInterface;
 import org.kennek.esalud.models.SpeechApiRequest;
 
@@ -187,6 +190,51 @@ public class SecondFragment extends Fragment {
                                         .create())
                                 .build();
                         SpeechInterface speechInterface = retrofit.create(SpeechInterface.class);
+
+                        /*JSONObject json = new JSONObject();
+                        JSONObject audiojson = new JSONObject();
+                        JSONObject configjson = new JSONObject();
+
+                        try {
+                            audiojson.put("uri", "gs://esalud-f8523.appspot.com/eSalud" + fecha + ".mp3");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        try {
+                            configjson.put("encoding", "FLAC");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        try {
+                            configjson.put("sampleRateHertz", 16000);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        try {
+                            configjson.put("languageCode", "es_ES");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        try {
+                            configjson.put("maxAlternatives", 1);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        try {
+                            configjson.put("profanityFilter", false);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        try {
+                            json.put("config", configjson);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        try {
+                            json.put("audio", audiojson);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }*/
 
 
                     }

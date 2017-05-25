@@ -1,34 +1,56 @@
-package org.kennek.esalud.models;
+package org.kennek.esalud;
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
+import java.util.HashMap;
+import java.util.Map;
+import com.fasterxml.jackson.annotation.JsonAnyGetter;
+import com.fasterxml.jackson.annotation.JsonAnySetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-/**
- * Created by kenne on 5/24/2017.
- */
-
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonPropertyOrder({
+        "transcript",
+        "confidence"
+})
 public class Alternative {
-    @SerializedName("transcript")
-    @Expose
-    private String transcript;
-    @SerializedName("confidence")
-    @Expose
-    private Double confidence;
 
+    @JsonProperty("transcript")
+    private String transcript;
+    @JsonProperty("confidence")
+    private Integer confidence;
+    @JsonIgnore
+    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+
+    @JsonProperty("transcript")
     public String getTranscript() {
         return transcript;
     }
 
+    @JsonProperty("transcript")
     public void setTranscript(String transcript) {
         this.transcript = transcript;
     }
 
-    public Double getConfidence() {
+    @JsonProperty("confidence")
+    public Integer getConfidence() {
         return confidence;
     }
 
-    public void setConfidence(Double confidence) {
+    @JsonProperty("confidence")
+    public void setConfidence(Integer confidence) {
         this.confidence = confidence;
+    }
+
+    @JsonAnyGetter
+    public Map<String, Object> getAdditionalProperties() {
+        return this.additionalProperties;
+    }
+
+    @JsonAnySetter
+    public void setAdditionalProperty(String name, Object value) {
+        this.additionalProperties.put(name, value);
     }
 
 }
