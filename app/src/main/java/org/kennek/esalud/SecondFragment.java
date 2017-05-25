@@ -110,7 +110,7 @@ public class SecondFragment extends Fragment {
         }
         if (success) {
             outputFile = Environment.getExternalStorageDirectory().getAbsolutePath() +"/eSalud/"+fecha+".mp3";
-            Toast.makeText(getActivity(), outputFile, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getActivity(), outputFile, Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(getActivity(), "Failed - Error", Toast.LENGTH_SHORT).show();
         }

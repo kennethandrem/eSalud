@@ -16,7 +16,7 @@
     <string name="facebook_application_id" translatable="false">121411061765048</string>
     <!-- Facebook Application ID, prefixed by 'fb'.  Enables Chrome Custom tabs. -->
     <string name="facebook_login_protocol_scheme" translatable="false">fb121411061765048</string>
-    <string name="title_activity_profile">ProfileActivity</string>
+    <string name="title_activity_profile">Profile</string>
     <string name="large_text">
         "Material is the metaphor.\n\n"
 
