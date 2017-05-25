@@ -1,7 +1,6 @@
 package org.kennek.esalud;
 
 import android.app.Activity;
-import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -9,7 +8,6 @@ import android.media.MediaRecorder;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.speech.RecognizerIntent;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -23,13 +21,9 @@ import android.widget.Toast;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.Locale;
 
 import at.markushi.ui.CircleButton;
-
-import static android.app.Activity.RESULT_OK;
 
 
 /**
@@ -48,8 +42,6 @@ public class SecondFragment extends Fragment {
     private MediaRecorder grabacion;
     private  String outputFile = null;
     Date fecha;
-    private TextView voiceInput;
-    private final int REQ_CODE_SPEECH_INPUT = 100;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -85,7 +77,6 @@ public class SecondFragment extends Fragment {
         final CircleButton btnStop = (CircleButton) rootView2.findViewById(R.id.btnStop);
         //agregar fecha para identificar los diferentes audios
         fecha = new Date();
-//        voiceInput = (TextView) voiceInput.findViewById(R.id.voiceInput);
 
         File folder = new File(Environment.getExternalStorageDirectory() + "/eSalud");
         boolean success = true;
@@ -108,28 +99,26 @@ public class SecondFragment extends Fragment {
 
         btnStop.setEnabled(false);
 
-        btnRec.setOnClickListener(new View.OnClickListener() {
+        btnRec.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
-            public void onClick(View v) {
-                askSpeechInput();
+            public boolean onLongClick(View v) {
                 Snackbar snackbar = Snackbar
                         .make(v, "¡Estoy escuchando al paciente!", Snackbar.LENGTH_SHORT);
                 snackbar.show();
                 View sbView = snackbar.getView();
                 sbView.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.colorPrimary));
-                /*try {
+                try {
                     grabacion.prepare();
                     grabacion.start();
 
                 } catch (IOException e) {
                     e.printStackTrace();
-                }*/
+                }
                 btnStop.setEnabled(true);
 
-                //return false;
+                return false;
             }
         });
-
 
         btnStop.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -147,38 +136,7 @@ public class SecondFragment extends Fragment {
             }
         });
         return rootView2;
-    }//OnCreate
-    // Showing google speech input dialog
-
-    private void askSpeechInput() {
-        Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,"es-MX");
-        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
-        intent.putExtra(RecognizerIntent.EXTRA_PROMPT,
-                "Proceder con el diagnóstico");
-        try {
-            startActivityForResult(intent, REQ_CODE_SPEECH_INPUT);
-        } catch (ActivityNotFoundException a) {
-
-        }
     }
-    // Receiving speech input
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        switch (requestCode) {
-            case REQ_CODE_SPEECH_INPUT: {
-                if (resultCode == RESULT_OK && null != data) {
-                    ArrayList<String> result = data
-                            .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-                    voiceInput.setText(result.get(0));
-                    break;
-            }
-        }
-    }}
-
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {

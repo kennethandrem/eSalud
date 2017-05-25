@@ -101,7 +101,9 @@ public class MainActivity extends AppCompatActivity
                 pushFragment(new FirstFragment());
                 break;
             case R.id.navigation_dashboard:
-                pushFragment(new SecondFragment());
+                Intent intent =new Intent(this,Speech_Activity.class);
+                startActivity(intent);
+                //pushFragment(new SecondFragment());
                 break;
             case R.id.navigation_notifications:
                 // Action to perform when Account Menu item is selected.
